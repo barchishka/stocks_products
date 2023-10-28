@@ -19,21 +19,19 @@ class ProductPositionSerializer(serializers.ModelSerializer):
 class StockSerializer(serializers.ModelSerializer):
     positions = ProductPositionSerializer(many=True)
 
+    class Meta:
+        model = Stock
+        fields = ['id', 'address', 'positions']
+
     # настройте сериализатор для склада
     def create(self, validated_data):
         # достаем связанные данные для других таблиц
         positions = validated_data.pop('positions')
         # создаем склад по его параметрам
         stock = super().create(validated_data)
-        for element in positions:
-            StockProduct.objects.create(
-                product=element['product'],
-                stock=stock, quantity=element['quantity'],
-                price=element['price'])
+        for position in positions:
+            StockProduct.objects.create(stock=stock, **position)
 
-        # здесь вам надо заполнить связанные таблицы
-        # в нашем случае: таблицу StockProduct
-        # с помощью списка positions
         return stock
 
     def update(self, instance, validated_data):
@@ -41,20 +39,15 @@ class StockSerializer(serializers.ModelSerializer):
         positions = validated_data.pop('positions')
         # обновляем склад по его параметрам
         stock = super().update(instance, validated_data)
-        for i in positions:
+        for position in positions:
             StockProduct.objects.update_or_create(
+                stock=stock,
+                product=position['product'],
                 defaults={
-                    'quantity': i['quantity'],
-                    'price': i['price']
-                },
-                product=i['product'],
-                stock=stock
-            )
+                    'quantity': position['quantity'],
+                    'price': position['price']
+                })
         # здесь вам надо обновить связанные таблицы
         # в нашем случае: таблицу StockProduct
         # с помощью списка positions
         return stock
-
-    class Meta:
-        model = Stock
-        fields = ["address", "positions"]

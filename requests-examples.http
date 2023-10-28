@@ -7,8 +7,8 @@ POST {{baseUrl}}/products/
 Content-Type: application/json
 
 {
-  "title": "Огурws",
-  "description": "Лучшие огурцы на рынке"
+  "title": "Помидор",
+  "description": "Лучшие помидоры на рынке"
 }
 
 ###
@@ -20,11 +20,11 @@ Content-Type: application/json
 ###
 
 # обновление продукта
-PATCH {{baseUrl}}/products/8/
+PATCH {{baseUrl}}/products/1/
 Content-Type: application/json
 
 {
-  "description": "Самые сочные и свежие огурцы на рынке"
+  "description": "Самые сочные и ароматные помидорки"
 }
 
 ###

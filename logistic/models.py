@@ -33,4 +33,3 @@ class StockProduct(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0)],
     )
-#ff;f;f;f;f;f
