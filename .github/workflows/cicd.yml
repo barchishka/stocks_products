@@ -65,7 +65,7 @@ jobs:
           DB_PORT: ${{ env.PORT }}
           
       - name: Деплой
-        uses: appleboy/ssh-action@main
+        uses: appleboy/ssh-action@v
         env:
           PASSWORD: ${{ secrets.SSH_PASSWORD }}
         with:
