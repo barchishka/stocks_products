@@ -63,5 +63,15 @@ jobs:
           DB_NAME: ${{ env.NAME }}
           DB_HOST: ${{ env.HOST }}
           DB_PORT: ${{ env.PORT }}
-
+          
+      - name: Деплой
+        uses: appleboy/ssh-action@main
+        env:
+          PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          envs: PASSWORD
+          script: expect /home/barch/stocks_products/deploy.exp
 
