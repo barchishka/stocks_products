@@ -66,12 +66,12 @@ jobs:
           
       - name: Деплой
 #        uses: appleboy/ssh-action@main
-#        env:
-#          PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        env:
+          PASSWORD: ${{ secrets.SSH_PASSWORD }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-#          envs: PASSWORD
+          envs: PASSWORD
           script: expect /home/barch/stocks_products/deploy.exp
 
