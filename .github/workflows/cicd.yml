@@ -73,4 +73,5 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
+          envs: PASSWORD
           script: expect /home/barch/stocks_products/deploy.exp
